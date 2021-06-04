@@ -22,6 +22,14 @@ person.save(function(err,data){
     console.log(data)
 })
 
+
+const callback = (data) => 
+{
+    const favoritefood = data.favoritefoods;
+    favoritefood.push('Hamburger');
+    PersonModel.findByIdAndUpdate(data._id,{favoritefood}).then(data => console.log(data)).catch(err=> console.error(err));
+}
+
 //Create Many Records with model.create()
 PersonModel.create([{name:'ahmed',age: 22 , favoritefoods: ['pizza', 'pasta']},{name:'habiba',age: 23 , favoritefoods: ['fish', 'chicken']}]);
 PersonModel.create([{name:'mohamed',age: 10 , favoritefoods: ['pizza', 'burritos']},{name:'nada',age: 9 , favoritefoods: ['burritos', 'chicken']}]);
@@ -34,7 +42,7 @@ PersonModel.findOne({ favoritefoods: 'chicken' }).then(data => console.log(data)
 PersonModel.findById('60a786368b57560eb8f6debc').then(data => console.log(data)).catch(err=> console.error(err));
 //Perform Classic Updates by Running Find, Edit, then Save
 PersonModel.findById('60a786368b57560eb8f6debc')
-    .then(favoritefood = data.favoritefoods).catch(err=> console.error(err));
+    .then(callback).catch(err=> console.error(err));
 //Perform New Updates on a Document Using model.findOneAndUpdate()
 PersonModel.findOneAndUpdate({name: 'sherine'},{age: 22},{new:true, useFindAndModify:false}).then(data => console.log(data)).catch(err=> console.error(err));
 //Delete One Document Using model.findByIdAndRemove
